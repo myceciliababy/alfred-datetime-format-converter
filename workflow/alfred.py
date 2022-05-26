@@ -17,7 +17,8 @@ UNESCAPE_CHARACTERS = u""" ;()"""
 
 _MAX_RESULTS_DEFAULT = 9
 
-preferences = plistlib.readPlist('info.plist')
+with open('info.plist', 'rb') as fp:
+    preferences = plistlib.load(fp, fmt=None)
 bundleid = preferences['bundleid']
 
 class Item(object):
@@ -26,9 +27,9 @@ class Item(object):
         try:
             items = iter(value.items())
         except AttributeError:
-            return unicode(value)
+            return str(value)
         else:
-            return dict(map(unicode, item) for item in items)
+            return dict(map(str, item) for item in items)
 
     def __init__(self, attributes, title, subtitle, icon=None):
         self.attributes = attributes
@@ -55,11 +56,14 @@ class Item(object):
 def args(characters=None):
     return tuple(unescape(decode(arg), characters) for arg in sys.argv[1:])
 
+def env_arg(name):
+    return os.getenv(name)
+
 def config():
     return _create('config')
 
 def decode(s):
-    return unicodedata.normalize('NFD', s.decode('utf-8'))
+    return unicodedata.normalize('NFD', s)
 
 def env(key):
     return os.environ['alfred_%s' % key]
@@ -86,7 +90,7 @@ def xml(items, maxresults=_MAX_RESULTS_DEFAULT):
     root = Element('items')
     for item in itertools.islice(items, maxresults):
         root.append(item.xml())
-    return tostring(root, encoding='utf-8')
+    return tostring(root, encoding='unicode')
 
 def _create(path):
     if not os.path.isdir(path):
