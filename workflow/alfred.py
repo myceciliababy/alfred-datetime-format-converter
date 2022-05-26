@@ -24,7 +24,7 @@ class Item(object):
     @classmethod
     def unicode(cls, value):
         try:
-            items = value.iteritems()
+            items = iter(value.items())
         except AttributeError:
             return unicode(value)
         else:
@@ -37,7 +37,7 @@ class Item(object):
         self.icon = icon
 
     def __str__(self):
-        return tostring(self.xml(), encoding='utf-8')
+        return tostring(self.xml()).decode('utf-8')
 
     def xml(self):
         item = Element(u'item', self.unicode(self.attributes))
@@ -45,27 +45,27 @@ class Item(object):
             value = getattr(self, attribute)
             if value is None:
                 continue
-            try:
+            if len(value) == 2 and isinstance(value[1], dict):
                 (value, attributes) = value
-            except:
+            else:
                 attributes = {}
-            SubElement(item, attribute, self.unicode(attributes)).text = unicode(value)
+            SubElement(item, attribute, self.unicode(attributes)).text = self.unicode(value)
         return item
 
 def args(characters=None):
     return tuple(unescape(decode(arg), characters) for arg in sys.argv[1:])
 
-def env_arg(name):
-    return os.getenv(name)
-
 def config():
     return _create('config')
 
 def decode(s):
-    return unicodedata.normalize('NFC', s.decode('utf-8'))
+    return unicodedata.normalize('NFD', s.decode('utf-8'))
+
+def env(key):
+    return os.environ['alfred_%s' % key]
 
 def uid(uid):
-    return u'-'.join(map(unicode, (bundleid, uid)))
+    return u'-'.join(map(str, (bundleid, uid)))
 
 def unescape(query, characters=None):
     for character in (UNESCAPE_CHARACTERS if (characters is None) else characters):
@@ -74,10 +74,10 @@ def unescape(query, characters=None):
 
 def work(volatile):
     path = {
-        true: env_arg('alfred_workflow_cache'), # using alfred env variable instead of fixed string
-        false: env_arg('alfred_workflow_data')
+        True: env('workflow_cache'),
+        False: env('workflow_data')
     }[bool(volatile)]
-    return _create(os.path.expanduser(path))
+    return _create(path)
 
 def write(text):
     sys.stdout.write(text)
