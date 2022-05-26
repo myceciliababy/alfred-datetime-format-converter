@@ -4,6 +4,8 @@
 <dict>
 	<key>bundleid</key>
 	<string>com.alexmerkel.datetime-format-converter</string>
+	<key>category</key>
+	<string>Productivity</string>
 	<key>connections</key>
 	<dict>
 		<key>78186B00-90E0-437B-8F42-09282A73D2E9</key>
@@ -15,6 +17,8 @@
 				<integer>0</integer>
 				<key>modifiersubtext</key>
 				<string></string>
+				<key>vitoclose</key>
+				<false/>
 			</dict>
 		</array>
 	</dict>
@@ -31,27 +35,36 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>autopaste</key>
+				<key>alfredfiltersresults</key>
 				<false/>
-				<key>clipboardtext</key>
-				<string>{query}</string>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.output.clipboard</string>
-			<key>uid</key>
-			<string>8A241B58-CFB1-4BC9-A0B1-F007F87D016F</string>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttreatemptyqueryasnil</key>
+				<false/>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
 				<key>argumenttype</key>
 				<integer>0</integer>
 				<key>escaping</key>
 				<integer>36</integer>
 				<key>keyword</key>
 				<string>df</string>
+				<key>queuedelaycustom</key>
+				<integer>1</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<false/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string></string>
 				<key>script</key>
 				<string>python3 process.py "{query}"</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
 				<key>subtext</key>
 				<string>Examples: 1364302555, 2013-01-15 19:41:06, now</string>
 				<key>title</key>
@@ -65,37 +78,61 @@
 			<string>alfred.workflow.input.scriptfilter</string>
 			<key>uid</key>
 			<string>78186B00-90E0-437B-8F42-09282A73D2E9</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>autopaste</key>
+				<false/>
+				<key>clipboardtext</key>
+				<string>{query}</string>
+				<key>ignoredynamicplaceholders</key>
+				<false/>
+				<key>transient</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.clipboard</string>
+			<key>uid</key>
+			<string>8A241B58-CFB1-4BC9-A0B1-F007F87D016F</string>
+			<key>version</key>
+			<integer>3</integer>
 		</dict>
 	</array>
 	<key>readme</key>
-	<string>v0.3
-Requires pytz and tzlocal
-
-Based on work by Michael Waterfall and Yanhe
+	<string>Based on work by Michael Waterfall and Yanhe
 https://github.com/mwaterfall/alfred-datetime-format-converter
 https://github.com/kissghosts/alfred-datetime-format-converter/tree/alfred4-timezone
 
+
 This workflow uses these awesome Python projects:
 
-Delorean by Mahdi Yusuf
-https://github.com/myusuf3/delorean
-
-Alfred Python by Jan Müller
-https://github.com/nikipore/alfred-python</string>
+* Delorean by Mahdi Yusuf: https://github.com/myusuf3/delorean
+* Alfred Python by Jan Müller: https://github.com/nikipore/alfred-python
+* pytz by Stuart Bishop: https://pythonhosted.org/pytz/
+* tzlocal by Lennart Regebro: https://github.com/regebro/tzlocal</string>
 	<key>uidata</key>
 	<dict>
-		<key>8A241B58-CFB1-4BC9-A0B1-F007F87D016F</key>
+		<key>78186B00-90E0-437B-8F42-09282A73D2E9</key>
 		<dict>
+			<key>xpos</key>
+			<integer>300</integer>
 			<key>ypos</key>
 			<real>80</real>
 		</dict>
-		<key>78186B00-90E0-437B-8F42-09282A73D2E9</key>
+		<key>8A241B58-CFB1-4BC9-A0B1-F007F87D016F</key>
 		<dict>
+			<key>xpos</key>
+			<integer>700</integer>
 			<key>ypos</key>
 			<real>80</real>
 		</dict>
 	</dict>
+	<key>version</key>
+	<string>0.3</string>
 	<key>webaddress</key>
-    <string>https://alexmerkel.com</string>
+	<string>https://alexmerkel.com</string>
 </dict>
 </plist>
