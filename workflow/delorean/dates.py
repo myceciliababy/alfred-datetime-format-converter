@@ -6,10 +6,10 @@ from datetime import tzinfo
 from functools import partial
 from functools import update_wrapper
 
-import humanize
+#import humanize
 import pytz
 
-from babel.dates import format_datetime
+#from babel.dates import format_datetime
 from dateutil.tz import tzoffset
 from dateutil.relativedelta import relativedelta
 from tzlocal import get_localzone
@@ -203,7 +203,7 @@ class Delorean(object):
                     self._tzinfo = self._dt.tzinfo
                 else:
                     # TODO(mlew, 2015-08-09):
-                    # Should we really throw an error here, or should this 
+                    # Should we really throw an error here, or should this
                     # default to UTC?)
                     raise DeloreanInvalidTimezone('Provide a valid timezone')
             else:
@@ -569,45 +569,45 @@ class Delorean(object):
 
         return Delorean(datetime=self._dt.replace(**kwargs), timezone=self.timezone)
 
-    def humanize(self):
-        """
-        Humanize relative to now:
+#    def humanize(self):
+#        """
+#        Humanize relative to now:
+#
+#        .. testsetup::
+#
+#            from datetime import timedelta
+#            from delorean import Delorean
+#
+#        .. doctest::
+#
+#            >>> past = Delorean.utcnow() - timedelta(hours=1)
+#            >>> past.humanize()
+#            'an hour ago'
+#
+#        """
+#        now = self.now(self.timezone)
+#
+#        return humanize.naturaltime(now - self)
 
-        .. testsetup::
-
-            from datetime import timedelta
-            from delorean import Delorean
-
-        .. doctest::
-
-            >>> past = Delorean.utcnow() - timedelta(hours=1)
-            >>> past.humanize()
-            'an hour ago'
-
-        """
-        now = self.now(self.timezone)
-
-        return humanize.naturaltime(now - self)
-
-    def format_datetime(self, format='medium', locale='en_US'):
-        """
-        Return a date string formatted to the given pattern.
-
-        .. testsetup::
-
-            from delorean import Delorean
-
-        .. doctest::
-
-            >>> d = Delorean(datetime(2015, 1, 1, 12, 30), timezone='US/Pacific')
-            >>> d.format_datetime(locale='en_US')
-            u'Jan 1, 2015, 12:30:00 PM'
-
-            >>> d.format_datetime(format='long', locale='de_DE')
-            u'1. Januar 2015 12:30:00 -0800'
-
-        :param format: one of "full", "long", "medium", "short", or a custom datetime pattern
-        :param locale: a locale identifier
-
-        """
-        return format_datetime(self._dt, format=format, locale=locale)
+#    def format_datetime(self, format='medium', locale='en_US'):
+#        """
+#        Return a date string formatted to the given pattern.
+#
+#        .. testsetup::
+#
+#            from delorean import Delorean
+#
+#        .. doctest::
+#
+#            >>> d = Delorean(datetime(2015, 1, 1, 12, 30), timezone='US/Pacific')
+#            >>> d.format_datetime(locale='en_US')
+#            u'Jan 1, 2015, 12:30:00 PM'
+#
+#            >>> d.format_datetime(format='long', locale='de_DE')
+#            u'1. Januar 2015 12:30:00 -0800'
+#
+#        :param format: one of "full", "long", "medium", "short", or a custom datetime pattern
+#        :param locale: a locale identifier
+#
+#        """
+#        return format_datetime(self._dt, format=format, locale=locale)
