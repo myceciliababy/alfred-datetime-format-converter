@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from datetime import datetime
 
 import alfred
 import calendar
@@ -50,6 +51,17 @@ def alfred_items_for_value(value):
     results.append(alfred.Item(
         title=str(item_value),
         subtitle=u'UTC Timestamp',
+        attributes={
+            'uid': alfred.uid(index),
+            'arg': item_value,
+        },
+        icon='icon.png',
+    ))
+    index += 1
+
+    results.append(alfred.Item(
+        title=str(int(round(datetime.timestamp(value.datetime) * 1000))),
+        subtitle=u'UTC MilliSecond Timestamp',
         attributes={
             'uid': alfred.uid(index),
             'arg': item_value,
