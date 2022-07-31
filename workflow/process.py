@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from datetime import datetime
 
 import alfred
 import calendar
@@ -27,6 +28,8 @@ def parse_query_value(query_str):
         else:
             # Parse datetime string or timestamp
             try:
+                if str(query_str).isdigit() and len(query_str) == 13:
+                    query_str = int(query_str) / 1000
                 d = epoch(float(query_str))
             except ValueError:
                 d = parse(str(query_str), get_timezone())
@@ -48,6 +51,17 @@ def alfred_items_for_value(value):
     results.append(alfred.Item(
         title=str(item_value),
         subtitle=u'UTC Timestamp',
+        attributes={
+            'uid': alfred.uid(index),
+            'arg': item_value,
+        },
+        icon='icon.png',
+    ))
+    index += 1
+
+    results.append(alfred.Item(
+        title=str(int(round(datetime.timestamp(value.datetime) * 1000))),
+        subtitle=u'UTC MilliSecond Timestamp',
         attributes={
             'uid': alfred.uid(index),
             'arg': item_value,
